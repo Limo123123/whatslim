@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsLim - Dein Limo ID Chat</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/chat.css">
+</head>
+
+<body>
+    <header>
+        <h1>WhatsLim</h1>
+        <div id="userInfo">
+            <!-- Wird von JS befüllt: Username, Limo ID, Logout-Button -->
+        </div>
+    </header>
+
+    <main id="appContainer">
+        <!-- Login-Formular (falls nicht eingeloggt) -->
+        <section id="loginSection" class="hidden">
+            <h2>Limo ID Login</h2>
+            <form id="loginForm">
+                <input type="text" id="loginUsername" placeholder="Benutzername" required>
+                <input type="password" id="loginPassword" placeholder="Passwort" required>
+                <label><input type="checkbox" id="loginRememberMe"> Angemeldet bleiben</label>
+                <button type="submit">Login</button>
+                <p id="loginError" class="error-message"></p>
+            </form>
+            <p>Noch keine Limo ID? <button id="showRegisterButton">Registrieren</button></p>
+        </section>
+        <section id="registerSection" class="hidden">
+            <h2>Limo ID Registrierung</h2>
+            <form id="registerForm">
+                <input type="text" id="registerUsername" placeholder="Benutzername (3-30 Z.)" required>
+                <input type="password" id="registerPassword" placeholder="Passwort (min. 6 Z.)" required>
+                <button type="submit">Registrieren</button>
+                <p id="registerError" class="error-message"></p>
+            </form>
+            <p>Bereits registriert? <button id="showLoginButton">Zum Login</button></p>
+        </section>
+
+        <!-- Chat-Bereich (falls eingeloggt) -->
+        <section id="chatAppSection" class="hidden">
+            <aside id="sidebar">
+                <div id="chatActions">
+                    <button id="createPersonalChatBtn">Privater Chat</button>
+                    <button id="createGroupChatBtn">Gruppe erstellen</button>
+                    <button id="joinGroupBtn">Gruppe beitreten</button>
+                    <input type="search" id="messageSearchInput" placeholder="Nachrichten suchen...">
+                    <button id="messageSearchBtn">Suchen</button>
+                </div>
+                <div id="myShareCodeSection">
+                    Dein User Share-Code: <strong id="myUserShareCode"></strong>
+                    <button id="regenerateUserShareCodeBtn">Neu</button>
+                </div>
+                <hr>
+                <h3>Meine Chats</h3>
+                <ul id="chatList">
+                    <!-- Chats werden hier von JS eingefügt -->
+                    <!-- Beispiel-Item:
+                    <li data-chat-id="someId" data-chat-type="personal">
+                        <span>Chat mit UserX</span>
+                        <span class="last-message-preview">Hallo!</span>
+                        <button class="mute-chat-btn" data-muted="false">Mute</button>
+                    </li>
+                    -->
+                </ul>
+            </aside>
+
+            <section id="chatView">
+                <div id="activeChatHeader">
+                    <!-- Wird von JS befüllt: Chat-Name, Gruppen-Optionen -->
+                </div>
+                <div id="messageList">
+                    <!-- Nachrichten werden hier von JS eingefügt -->
+                    <!-- Beispiel-Item (eigene Nachricht):
+                    <div class="message self">
+                        <p class="message-content">Meine Nachricht</p>
+                        <span class="message-meta">Du - 10:30</span>
+                    </div>
+                     Beispiel-Item (andere Nachricht):
+                    <div class="message other">
+                        <p class="message-sender">UserX</p>
+                        <p class="message-content">Antwort...</p>
+                        <span class="message-meta">10:31</span>
+                    </div>
+                    Beispiel-Item (System Nachricht):
+                    <div class="message system">
+                        <p class="message-content">UserY ist dem Chat beigetreten.</p>
+                        <span class="message-meta">10:32</span>
+                    </div>
+                    -->
+                </div>
+                <div id="messageInputArea">
+                    <textarea id="messageText" placeholder="Nachricht eingeben..."></textarea>
+                    <button id="sendMessageBtn">Senden</button>
+                </div>
+            </section>
+
+            <section id="searchResultsPanel" class="hidden">
+                <h3>Suchergebnisse</h3>
+                <ul id="searchResultsList"></ul>
+                <button id="closeSearchResultsBtn">Schließen</button>
+            </section>
+        </section>
+    </main>
+
+    <!-- Modals für Aktionen -->
+    <div id="modalOverlay" class="hidden">
+        <div id="startPersonalChatModal" class="modal hidden">
+            <h4>Privaten Chat starten</h4>
+            <input type="text" id="targetUserShareCodeInput" placeholder="User Share-Code des Partners">
+            <button id="confirmStartPersonalChatBtn">Starten</button>
+            <button class="close-modal-btn">Abbrechen</button>
+            <p id="personalChatError" class="error-message"></p>
+        </div>
+        <div id="createGroupModal" class="modal hidden">
+            <h4>Neue Gruppe erstellen</h4>
+            <input type="text" id="newGroupNameInput" placeholder="Gruppenname">
+            <textarea id="initialGroupParticipantsInput"
+                placeholder="User Share-Codes (kommagetrennt, optional)"></textarea>
+            <button id="confirmCreateGroupBtn">Erstellen</button>
+            <button class="close-modal-btn">Abbrechen</button>
+            <p id="createGroupError" class="error-message"></p>
+        </div>
+        <div id="joinGroupModal" class="modal hidden">
+            <h4>Gruppe beitreten</h4>
+            <input type="text" id="groupShareCodeInput" placeholder="Gruppen Share-Code">
+            <button id="confirmJoinGroupBtn">Beitreten</button>
+            <button class="close-modal-btn">Abbrechen</button>
+            <p id="joinGroupError" class="error-message"></p>
+        </div>
+        <div id="groupAdminModal" class="modal hidden">
+            <h4>Gruppe verwalten: <span id="adminModalGroupName"></span></h4>
+            <p>Share-Code: <strong id="adminModalGroupShareCode"></strong> <button
+                    id="adminRegenerateGroupShareCodeBtn">Neu</button></p>
+            <div>
+                Name ändern: <input type="text" id="adminEditGroupNameInput">
+                <button id="adminConfirmEditGroupNameBtn">Speichern</button>
+            </div>
+            <h5>Teilnehmer (<span id="adminParticipantCount">0</span>)</h5>
+            <ul id="adminParticipantList"></ul>
+            Neuen Teilnehmer hinzufügen (User Share-Code):
+            <input type="text" id="adminAddParticipantInput">
+            <button id="adminConfirmAddParticipantBtn">Hinzufügen</button>
+            <hr>
+            <button id="adminLeaveGroupBtn">Gruppe verlassen</button>
+            <button id="adminDeleteGroupBtn" class="hidden">Gruppe LÖSCHEN (Owner)</button>
+            <br>
+            <button class="close-modal-btn">Schließen</button>
+            <p id="groupAdminError" class="error-message"></p>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/ui.js"></script> <!-- DEFINIERT groupAdmin -->
+    <script src="js/auth.js"></script>
+    <script src="js/chatService.js"></script> <!-- VERWENDET groupAdmin -->
+    <script src="js/main.js"></script>
+
+</html>

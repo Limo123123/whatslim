@@ -1,0 +1,261 @@
+/* css/style.css */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.6;
+    background-color: #f4f7f6;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #3498db;
+    color: white;
+    padding: 1rem 1.5rem; /* Mehr horizontaler Padding */
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+#userInfo {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Abstand zwischen User-Name und Button */
+}
+#userInfo span {
+    margin-right: 0; /* Entfernt, da gap genutzt wird */
+}
+#userInfo button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem; /* Etwas größer */
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+#userInfo button:hover {
+    background-color: #c0392b;
+}
+
+
+main#appContainer {
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1400px;
+    margin: 25px auto; /* Mehr oberer/unterer Abstand */
+    padding: 0 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Etwas stärkerer Schatten */
+}
+
+/* Auth Sektionen Styling */
+#loginSection, #registerSection {
+    max-width: 450px; /* Etwas breiter */
+    width: 90%;
+    margin: 40px auto; /* Zentrieren und Abstand */
+    padding: 25px 30px; /* Mehr Padding */
+    border: 1px solid #dce4ec;
+    border-radius: 6px;
+    background-color: #fbfcff; /* Sehr heller Hintergrund */
+}
+#loginSection h2, #registerSection h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Größerer Abstand */
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="search"],
+textarea {
+    padding: 12px 15px; /* Angepasstes Padding */
+    border: 1px solid #ced4da; /* Standard Bootstrap-ähnliche Border */
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    background-color: #fdfdfd;
+    color: #495057; /* Standard Textfarbe für Inputs */
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="search"]:focus,
+textarea:focus {
+    border-color: #80bdff; /* Heller Blauton bei Fokus */
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); /* Bootstrap-ähnlicher Fokus-Schatten */
+    outline: none;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+label {
+    color: #555b61; /* Dunkler für Labels */
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Abstand zwischen Checkbox und Text */
+}
+label input[type="checkbox"] {
+    width: auto; /* Checkboxen nicht volle Breite */
+    margin-right: 5px; /* Veraltet, da gap genutzt wird */
+}
+
+
+button, input[type="submit"] {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+    text-align: center;
+}
+button:hover, input[type="submit"]:hover {
+    background-color: #2980b9;
+}
+button:active, input[type="submit"]:active {
+    transform: translateY(1px);
+}
+
+button.secondary {
+    background-color: #6c757d; /* Bootstrap secondary color */
+    color: white;
+}
+button.secondary:hover {
+    background-color: #5a6268;
+}
+button.danger {
+    background-color: #dc3545; /* Bootstrap danger color */
+    color: white;
+}
+button.danger:hover {
+    background-color: #c82333;
+}
+button:disabled {
+    background-color: #adb5bd;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+
+.hidden {
+    display: none !important;
+}
+
+.error-message {
+    color: #dc3545;
+    font-size: 0.875em; /* Etwas kleiner */
+    margin-top: 8px;
+    text-align: left; /* Für Formulare besser linksbündig */
+    padding: 8px 12px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+}
+
+.success-message { /* Nicht verwendet, aber gut zu haben */
+    color: #155724;
+    font-size: 0.875em;
+    margin-top: 8px;
+    text-align: left;
+    padding: 8px 12px;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+}
+
+#modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.55); /* Etwas dunkler */
+    z-index: 1000;
+    display: none; /* Initial versteckt, wird von JS auf flex gesetzt */
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Padding für kleine Bildschirme */
+}
+
+.modal {
+    background-color: #ffffff;
+    color: #333;
+    padding: 25px 30px; /* Mehr Padding */
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+    min-width: 320px;
+    max-width: 550px; /* Etwas breiter für Admin-Modal */
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Abstand zwischen Elementen im Modal */
+}
+.modal h4 {
+    margin-top: 0;
+    margin-bottom: 10px; /* Weniger Margin, da gap genutzt wird */
+    color: #3498db;
+    font-size: 1.4rem; /* Größerer Titel */
+    font-weight: 600;
+    text-align: center;
+}
+.modal input[type="text"], .modal textarea {
+    background-color: #f9fafb; /* Leicht anderer Hintergrund für Modal-Inputs */
+}
+.modal .error-message { /* Fehler im Modal */
+    margin-top: 0; /* Kein zusätzlicher Top-Margin, da gap vom Modal kommt */
+    text-align: center;
+}
+.modal .modal-actions { /* Container für mehrere Buttons am Ende des Modals */
+    display: flex;
+    justify-content: flex-end; /* Buttons rechtsbündig */
+    gap: 10px;
+    margin-top: 10px;
+}
+.modal .modal-actions button.close-modal-btn {
+    margin-top: 0; /* Kein extra Margin, da in .modal-actions */
+    background-color: #6c757d; /* Sekundärfarbe für Abbrechen */
+}
+/* Placeholder-Styling */
+.chat-placeholder, .loading-placeholder, .no-chats-placeholder {
+    text-align: center;
+    color: #777;
+    padding: 20px;
+    font-style: italic;
+}

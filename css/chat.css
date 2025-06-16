@@ -1,0 +1,334 @@
+/* css/chat.css */
+
+#chatAppSection {
+    display: flex;
+    width: 100%;
+    /* max-width: 1200px; - wird von main#appContainer kontrolliert */
+    height: calc(100vh - 150px); /* Höhe anpassen, um in appContainer zu passen */
+    min-height: 500px; /* Mindesthöhe */
+    border: 1px solid #dee2e6; /* Leichter Rahmen */
+    border-radius: 6px; /* Abgerundete Ecken für den Chat-Block */
+    overflow: hidden; /* Verhindert, dass Kinder überlaufen */
+    background-color: #f8f9fa; /* Hintergrund für den gesamten Chat-Bereich */
+}
+
+#sidebar {
+    width: 300px; /* Feste Breite für Sidebar */
+    min-width: 250px; /* Mindestbreite */
+    border-right: 1px solid #dee2e6;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #e9ecef; /* Hellerer Hintergrund für Sidebar */
+    color: #343a40; /* Dunklerer Text */
+}
+#chatActions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Abstand zwischen Buttons */
+    margin-bottom: 15px;
+}
+#chatActions button, #chatActions input[type="search"] {
+    width: 100%;
+    padding: 10px; /* Einheitliches Padding */
+}
+#chatActions input[type="search"] {
+    margin-bottom: 0; /* Kein extra Margin unten für Suchfeld */
+}
+
+#myShareCodeSection {
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+    padding: 10px;
+    background-color: #f1f3f5;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    text-align: center;
+}
+#myShareCodeSection strong {
+    color: #007bff; /* Blauer Share-Code */
+    word-break: break-all;
+}
+#myShareCodeSection button {
+    font-size: 0.8em;
+    padding: 3px 8px;
+    margin-left: 8px;
+}
+
+
+#sidebar h3 {
+    color: #495057; /* Dunklere Überschrift */
+    margin-top: 15px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ced4da;
+    padding-bottom: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+#chatList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1; /* Nimmt restlichen Platz in Sidebar ein */
+}
+#chatList li {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e0e6ed;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    background-color: #ffffff;
+    color: #343a40;
+    transition: background-color 0.15s ease-in-out;
+}
+#chatList li:hover {
+    background-color: #e9f5ff; /* Hellblauer Hover */
+}
+#chatList li.active-chat {
+    background-color: #cfe2ff; /* Stärkeres Blau für aktiven Chat */
+    color: #004085; /* Dunkelblauer Text für aktiven Chat */
+}
+#chatList li .chat-name {
+    font-weight: 500;
+    flex-shrink: 0; /* Verhindert, dass der Name zu stark schrumpft */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 120px; /* Begrenze Name, damit Vorschau Platz hat */
+}
+.last-message-preview {
+    font-size: 0.85em;
+    color: #6c757d; /* Grauer Text für Vorschau */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-grow: 1;
+    margin: 0 5px; /* Kleiner horizontaler Abstand */
+    text-align: left; /* Sicherstellen, dass Vorschau linksbündig ist */
+}
+.mute-chat-btn {
+    padding: 4px 8px;
+    font-size: 0.8em;
+    border: 1px solid #adb5bd;
+    color: #495057;
+    background-color: #f8f9fa;
+    flex-shrink: 0; /* Verhindert Schrumpfen des Buttons */
+}
+.mute-chat-btn:hover {
+    background-color: #e2e6ea;
+}
+.mute-chat-btn[data-muted="true"] {
+    background-color: #ffe0e6; /* Leichter Rosaton */
+    color: #b32d43;
+    border-color: #ffc2d1;
+}
+
+#chatView {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff; /* Weißer Hintergrund für den Chat-Anzeigebereich */
+}
+#activeChatHeader {
+    padding: 12px 15px; /* Mehr Padding */
+    border-bottom: 1px solid #dee2e6;
+    background-color: #f8f9fa; /* Heller Hintergrund */
+    color: #212529; /* Dunkler Text */
+    min-height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#activeChatHeader h4 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.15rem; /* Etwas größerer Chat-Titel */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#activeChatHeader .group-options button {
+    margin-left: 8px;
+    padding: 6px 10px; /* Kleinere Buttons im Header */
+    font-size: 0.9em;
+}
+
+
+#messageList {
+    flex-grow: 1;
+    padding: 15px 20px; /* Mehr Padding */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Abstand zwischen Nachrichten */
+    background-color: #ffffff;
+}
+.message {
+    max-width: 75%; /* Etwas breiter */
+    padding: 10px 14px; /* Mehr Padding */
+    border-radius: 18px; /* Runder */
+    margin-bottom: 0; /* Entfernt, da gap von messageList kommt */
+    word-wrap: break-word;
+    box-shadow: 0 1px 2.5px rgba(0,0,0,0.1); /* Leichter Schatten */
+    line-height: 1.4; /* Bessere Zeilenhöhe für Nachrichten */
+}
+.message.self {
+    background-color: #007bff; /* Kräftiges Blau */
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 6px; /* Typischer Chat-Look */
+}
+.message.other {
+    background-color: #e9ecef; /* Helles Grau */
+    color: #212529; /* Dunkler Text */
+    align-self: flex-start;
+    border-bottom-left-radius: 6px;
+    border: none;
+}
+.message.system {
+    background-color: #f1f3f5;
+    color: #6c757d;
+    font-style: italic;
+    font-size: 0.85em;
+    align-self: center;
+    text-align: center;
+    padding: 6px 12px;
+    border-radius: 8px; /* Weniger rund */
+    box-shadow: none;
+    max-width: 85%;
+}
+.message-sender {
+    font-weight: 600;
+    font-size: 0.85em; /* Etwas kleiner */
+    margin-bottom: 3px;
+    color: #0056b3; /* Dunkleres Blau für Sendernamen */
+}
+.message.self .message-sender {
+    color: rgba(255,255,255,0.9); /* Hellerer Sendername (Du) */
+}
+.message-content {
+    /* Keine spezifischen Änderungen hier, Textfarbe wird von .message geerbt */
+}
+.message-meta {
+    font-size: 0.7em; /* Kleinerer Zeitstempel */
+    color: #6c757d;
+    margin-top: 5px;
+    text-align: right;
+    display: block; /* Stellt sicher, dass es unter dem Inhalt ist */
+}
+.message.other .message-meta {
+    text-align: left;
+}
+.message.self .message-meta {
+    color: rgba(255,255,255,0.75);
+}
+
+
+#messageInputArea {
+    display: flex;
+    padding: 12px 15px; /* Angepasstes Padding */
+    border-top: 1px solid #dee2e6;
+    background-color: #f8f9fa; /* Passend zum Header */
+    gap: 10px; /* Abstand zwischen Textarea und Button */
+}
+#messageInputArea textarea {
+    flex-grow: 1;
+    resize: none;
+    padding: 10px 12px;
+    border-radius: 18px; /* Passend zu Nachrichtenblasen */
+    border: 1px solid #ced4da;
+    background-color: #ffffff;
+    min-height: 44px; /* Mindesthöhe für eine Zeile + Padding */
+    max-height: 120px; /* Verhindert zu hohes Textfeld */
+    font-size: 0.95rem;
+}
+#messageInputArea textarea:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+#messageInputArea button {
+    margin-left: 0; /* Entfernt, da gap genutzt wird */
+    padding: 0 20px; /* Breiterer Send-Button */
+    border-radius: 18px; /* Passend zu Textarea */
+    flex-shrink: 0; /* Button nicht schrumpfen lassen */
+}
+
+
+/* Admin Modal spezifische Stile */
+#adminParticipantList {
+    list-style: none;
+    padding: 0;
+    max-height: 200px; /* Mehr Platz für Teilnehmer */
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+#adminParticipantList li {
+    padding: 8px 10px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f9f9f9;
+}
+#adminParticipantList li:last-child {
+    border-bottom: none;
+}
+#adminParticipantList li .admin-actions button {
+    /* Stile sind jetzt in groupAdmin.createAdminActionButton, aber man könnte hier Defaults setzen */
+}
+
+/* Suchergebnisse */
+#searchResultsPanel {
+    position: fixed;
+    top: 15%; /* Etwas tiefer */
+    right: 5%; /* Näher am Rand */
+    width: 350px; /* Etwas breiter */
+    max-height: 60vh;
+    background: #ffffff;
+    border: 1px solid #ced4da;
+    z-index: 900; /* Unter Modal-Overlay, aber über anderem Inhalt */
+    padding: 20px;
+    overflow-y: auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    border-radius: 6px;
+    color: #333;
+}
+#searchResultsPanel h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #3498db;
+    text-align: center;
+}
+#searchResultsList {
+    list-style: none;
+    padding: 0;
+}
+#searchResultsList li {
+    padding: 10px;
+    border-bottom: 1px solid #e9ecef;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+#searchResultsList li:last-child {
+    border-bottom: none;
+}
+#searchResultsList li:hover {
+    background-color: #f0f8ff;
+}
+.search-result-chat { font-size: 0.8em; color: #6c757d; margin-bottom: 3px; }
+.search-result-sender { font-weight: 600; color: #0056b3; }
+.search-result-content { margin: 3px 0; font-size: 0.95em; }
+.search-result-time { font-size: 0.75em; color: #868e96; text-align: right; }
+mark {
+    background-color: #fff3cd; /* Heller Gelbton */
+    color: #594400;
+    padding: 1px 3px;
+    border-radius: 2px;
+}
