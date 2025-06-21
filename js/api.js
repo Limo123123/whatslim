@@ -1,5 +1,5 @@
 // js/api.js
-const BASE_URL = 'https://app.limazon.v6.rocks/api'; // Dein API-Basispfad
+const BASE_URL = 'https://api.limazon.v6.rocks/api'; // Dein API-Basispfad
 
 async function request(endpoint, method = 'GET', data = null, requiresAuth = true) {
     console.log(`[API Request] ${method} ${BASE_URL}${endpoint}`, data || ''); // Log Request
